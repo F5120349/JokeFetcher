@@ -93,6 +93,32 @@ foreach (var joke in jokes)
 
 // Joke by Type:
 
-public static List<Joke> GetJokeByType
+void FetchJokesByType(string type, HttpClient client)
+{
+    // Send a GET request to the endpoint
+    HttpResponseMessage response = client.GetAsync($"jokes/{type}/ten").Result;
 
+    // Ensure the request was successful
+    response.EnsureSuccessStatusCode();
 
+    // Read the response content as a string
+    string responseBody = response.Content.ReadAsStringAsync().Result;
+
+    // Deserialize the JSON response into a list of Joke objects
+    var jokesList = JsonSerializer.Deserialize<List<Joke>>(responseBody, options);
+
+    // Display jokes of the specified type
+    Console.WriteLine($"\n10 Jokes of Type: {type}");
+    Console.WriteLine("-------------------------");
+    if (jokesList != null)
+    {
+        foreach (var joke in jokesList)
+        {
+            Console.WriteLine(joke.Setup);
+            Console.WriteLine(joke.Punchline);
+            Console.WriteLine();
+        }
+    }
+}
+
+FetchJokesByType("programming", client);
