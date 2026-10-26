@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data.Common;
 using System.Net.Http;
+using System.Reflection.Metadata;
 using System.Text.Json;
 using JokeFetcher.Dtos;
 
@@ -88,3 +90,9 @@ foreach (var joke in jokes)
     Console.WriteLine(joke.Punchline);
     Console.WriteLine();
 }
+
+// Joke by Type:
+
+public static List<Joke> GetJokeByType
+
+
